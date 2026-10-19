@@ -3,6 +3,9 @@ use serde::{Serialize, Serializer};
 /// Add your own variants here (e.g. not found, empty title).
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
+    /// Returned by command stubs until they are implemented.
+    #[error("Команда `{0}` ещё не реализована")]
+    NotImplemented(&'static str),
     #[error(transparent)]
     Io(#[from] std::io::Error),
     #[error(transparent)]

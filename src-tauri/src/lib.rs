@@ -2,7 +2,7 @@ mod error;
 
 use serde::{Deserialize, Serialize};
 
-use error::Result;
+use error::{Error, Result};
 
 /// Shape the frontend expects (see `src/lib/api.ts`).
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -11,38 +11,49 @@ pub struct Todo {
     pub id: u64,
     pub title: String,
     pub completed: bool,
+    /// Pinned todos are shown in a separate section at the top.
+    pub pinned: bool,
     /// Unix timestamp in milliseconds.
     pub created_at: u64,
 }
 
+// Stubs return `Error::NotImplemented` instead of `todo!()`:
+// a panic inside a Tauri command aborts the whole app.
+
 #[tauri::command]
 fn get_todos() -> Result<Vec<Todo>> {
-    todo!("return all todos")
+    // TODO: return all todos
+    Err(Error::NotImplemented("get_todos"))
 }
 
 #[tauri::command]
-fn add_todo(title: String) -> Result<Todo> {
-    todo!("create a todo with {title:?} and return it")
+fn add_todo(_title: String) -> Result<Todo> {
+    // TODO: create a todo with `title` and return it
+    Err(Error::NotImplemented("add_todo"))
 }
 
 #[tauri::command]
-fn toggle_todo(id: u64) -> Result<Todo> {
-    todo!("flip `completed` of todo #{id} and return it")
+fn toggle_todo(_id: u64) -> Result<Todo> {
+    // TODO: flip `completed` of todo `id` and return it
+    Err(Error::NotImplemented("toggle_todo"))
 }
 
 #[tauri::command]
-fn update_todo(id: u64, title: String) -> Result<Todo> {
-    todo!("rename todo #{id} to {title:?} and return it")
+fn update_todo(_id: u64, _title: String) -> Result<Todo> {
+    // TODO: rename todo `id` to `title` and return it
+    Err(Error::NotImplemented("update_todo"))
 }
 
 #[tauri::command]
-fn delete_todo(id: u64) -> Result<()> {
-    todo!("delete todo #{id}")
+fn delete_todo(_id: u64) -> Result<()> {
+    // TODO: delete todo `id`
+    Err(Error::NotImplemented("delete_todo"))
 }
 
 #[tauri::command]
-fn clear_completed() -> Result<usize> {
-    todo!("remove completed todos and return how many were removed")
+fn toggle_pin(_id: u64) -> Result<Todo> {
+    // TODO: flip `pinned` of todo `id` and return it
+    Err(Error::NotImplemented("toggle_pin"))
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -54,7 +65,7 @@ pub fn run() {
             toggle_todo,
             update_todo,
             delete_todo,
-            clear_completed
+            toggle_pin
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

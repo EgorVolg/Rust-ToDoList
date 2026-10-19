@@ -13,10 +13,10 @@
     "windows": [
       {
         "title": "Rust ToDoList",
-        "width": 520,
-        "height": 720,
-        "minWidth": 380,
-        "minHeight": 500,
+        "width": 900,
+        "height": 880,
+        "minWidth": 560,
+        "minHeight": 600,
         "center": true
       }
     ],
