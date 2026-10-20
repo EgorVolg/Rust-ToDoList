@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Rust ToDoList",
+  "productName": "ToRuDoSt",
   "version": "0.1.0",
   "identifier": "com.rusttodolist.app",
   "build": {
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "Rust ToDoList",
+        "title": "ToRuDoSt",
         "width": 900,
         "height": 880,
         "minWidth": 560,

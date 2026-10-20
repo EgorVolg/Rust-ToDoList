@@ -25,8 +25,17 @@ function byStatus(a: Todo, b: Todo) {
 }
 
 export default function App() {
-  const { todos, loading, error, dismissError, add, toggle, togglePin, rename, remove } =
-    useTodos();
+  const {
+    todos,
+    loading,
+    error,
+    dismissError,
+    add,
+    toggle,
+    togglePin,
+    rename,
+    remove,
+  } = useTodos();
   const [title, setTitle] = useState("");
 
   const completedCount = todos.filter((t) => t.completed).length;
@@ -68,29 +77,35 @@ export default function App() {
       <main className="relative mx-auto flex w-full max-w-[792px] flex-col gap-7 px-4 pt-16 pb-10">
         <header className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <p className="text-sm tracking-[0.04em] text-muted-foreground">{todayLabel()}</p>
+            <p className="text-sm tracking-[0.04em] text-muted-foreground">
+              {todayLabel()}
+            </p>
             <h1 className="mt-2 font-heading text-[44px] leading-none font-semibold tracking-[-0.01em]">
               Мои задачи
             </h1>
           </div>
-
-          <div className="w-[237px] rounded-[18px] border border-white/12 bg-white/6 px-[18px] py-3.5 backdrop-blur-xl">
-            <div className="flex items-baseline justify-between">
-              <span className="text-[13px] text-[#c2b3e6]">Выполнено</span>
-              <span className="text-[15px] font-semibold">
-                {completedCount} из {todos.length}
-              </span>
+          {todos.length > 0 && (
+            <div className="w-[237px] rounded-[18px] border border-white/12 bg-white/6 px-[18px] py-3.5 backdrop-blur-xl">
+              <div className="flex items-baseline justify-between">
+                <span className="text-[13px] text-[#c2b3e6]">Выполнено</span>
+                <span className="text-[15px] font-semibold">
+                  {completedCount} из {todos.length}
+                </span>
+              </div>
+              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
+                <div
+                  className="h-full rounded-full bg-primary transition-[width] duration-500"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
             </div>
-            <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
-              <div
-                className="h-full rounded-full bg-primary transition-[width] duration-500"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-          </div>
+          )}
         </header>
 
-        <form onSubmit={handleAdd} className={cn(glass, "flex gap-2.5 rounded-[22px] p-[11px]")}>
+        <form
+          onSubmit={handleAdd}
+          className={cn(glass, "flex gap-2.5 rounded-[22px] p-[11px]")}
+        >
           <Input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -116,14 +131,21 @@ export default function App() {
           >
             <CircleAlert className="size-4 shrink-0" />
             <span className="flex-1">{error}</span>
-            <Button size="icon-xs" variant="ghost" onClick={dismissError} aria-label="Скрыть ошибку">
+            <Button
+              size="icon-xs"
+              variant="ghost"
+              onClick={dismissError}
+              aria-label="Скрыть ошибку"
+            >
               <X />
             </Button>
           </div>
         )}
 
         {loading ? (
-          <div className={cn(glass, "py-16 text-center text-muted-foreground")}>Загрузка…</div>
+          <div className={cn(glass, "py-16 text-center text-muted-foreground")}>
+            Загрузка…
+          </div>
         ) : todos.length === 0 ? (
           <EmptyState />
         ) : (
@@ -139,7 +161,11 @@ export default function App() {
               </Section>
             )}
             {others.length > 0 && (
-              <Section icon={<List className="size-4" />} label="Остальные" count={others.length}>
+              <Section
+                icon={<List className="size-4" />}
+                label="Остальные"
+                count={others.length}
+              >
                 {renderItems(others)}
               </Section>
             )}
@@ -188,7 +214,9 @@ function Section({
 
 function EmptyState() {
   return (
-    <div className={cn(glass, "flex flex-col items-center px-6 py-16 text-center")}>
+    <div
+      className={cn(glass, "flex flex-col items-center px-6 py-16 text-center")}
+    >
       <div className="flex size-[65px] items-center justify-center rounded-[20px] border border-primary/25 bg-primary/12 text-primary">
         <Check className="size-7" />
       </div>
