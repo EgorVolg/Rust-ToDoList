@@ -3,9 +3,10 @@ use serde::{Serialize, Serializer};
 /// Add your own variants here (e.g. not found, empty title).
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
-    /// Returned by command stubs until they are implemented.
-    #[error("Команда `{0}` ещё не реализована")]
-    NotImplemented(&'static str),
+    #[error("Задача {0} не найдена!")]
+    NotFound(u64),
+    #[error("Задача не может быть пуста!")]
+    EmptyTitle,
     #[error(transparent)]
     Io(#[from] std::io::Error),
     #[error(transparent)]
